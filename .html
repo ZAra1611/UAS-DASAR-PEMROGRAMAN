@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>List Jurnal</title>
+	<script src="jurnal.html"></script>
+</head>
+<body ng-app="myApp"=>
+	<div ng-controller="CController">
+		<form>
+			<label>id</label>
+			<input type="text" name="ID" ng-model="newcontacts.ID"/>
+			<br /><br />
+			<label>title</label>
+			<input type="text" name="ID" ng-model="newcontacts.title"/>
+			<br /><br />
+			<label>ISBN</label>
+			<input type="text" name="ID" ng-model="newcontacts.ISBN"/>
+			<br /><br />
+            <label>Pengarang</label>
+			<input type="text" name ="Pengarang" ng-model="newcontacts.Pengarang/>
+			<br /><br />
+
+			<input type="hadden" ng-model="newcontacs.id"/>
+			<input type="botton" value ="save" ng-click="saveContacts()"/>
+		</form>
+		<table>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>TITLE</th>
+					<th>ISBN</th>
+					<th>PENGARANG</th>
+					<th>Actions</th>
+				</tr>
+		    </thead>
+			<tbody>
+				<tr ng-repeat="Contact in Contacts">
+					
+					<td>
+						<a href="#" ng-click="edit(newcontactsontacts.id)">Edit</a>
+						<a href="#" ng-click="delete(newcontactsontacts.id)">Delete</a>
+					</td>
+			    </tr>
+		   </tbody>
+		</table>
+	</div>
+</body>
+</html>
+
+<script type="text/javascript">
+	var uId = 0;
+	angular.module('myApp',[])
+	       .controller('CController',['$scope', CController]);
+
+	function CController($scope)
+	{
+       $scope.newcontacts = null;
+	   $scope.Cs = [];
+
+	   $scope.saveC = function () {
+		if($scope.newcontacts.id ==null){
+			uId = uId + 1;
+			$scope.newcontacts.id = uId;
+			$scope.Cs.push($scope.newcontacts);
+		  }
+		  else {
+			for(var i in $scope.Cs) {
+				if($scope.Cs[i].id == $scope.newcontacts.id) {
+					$scope .Cs[i] = $scope.newcontacts;
+				}
+			}
+		  }
+	   }
+
+	   $scope.newcontacts = null;
+
+	   $scope.edit = function (id) {
+		for(var i in $scope.Cs) {
+			if($scope.Cs[i].id == id) {
+				$scope.newcontacts = angular.copy($scope.Cs[i]);
+			}
+		}
+	   }
+
+	   $scope.delete = function (id) {
+		for(var i in $scope.Cs) {
+			if($scope.Cs[i].id == id) {
+				$scope.Cs.splice(i,1);
+				$scope.newcontacts = {};
+			}
+		}
+
+	   }
+	}
+</script>
